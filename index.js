@@ -1,6 +1,7 @@
 import PluginError from "plugin-error";
 import deepmerge from "deepmerge";
 import through from "through2";
+import replaceExt from "replace-ext";
 
 import sass from 'sass';
 
@@ -45,6 +46,9 @@ function _transformChunk(file, encoding, callback) {
         if(result.sourceMap) {
             file.sourcemap = result.sourceMap;
         }
+
+        // [4] Change the file extension to match the content-type
+        file.path = replaceExt(file.path, '.css');
 
         callback(null, file);
     } catch (error) {

@@ -54,6 +54,13 @@ test('sass should write sourcemaps', async t => {
 	t.truthy(file.sourcemap);
 })
 
+test("resulting file should have `.css` extension", async t => {
+	const file = await compile('simple');
+	t.is(file.extname, '.css');
+})
+
+test.todo("resulting sourcemap should reference a `.scss` file")
+
 test('sass should not compile partials individually', async t => {
 	const file = await compile('multiple');
 	t.is(file.contents.toString(), 'body{color:red}html{font-size:112.5%}');
