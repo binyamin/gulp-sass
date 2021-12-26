@@ -9,30 +9,37 @@ let sassOptions;
 let plugin_name = "gulp-community/sass";
 
 /**
- * @param {import("vinyl")} chunk also called "file"
+ * @param {import("vinyl")} file also called "file"
  * @param {BufferEncoding} encoding
  * @param {through.TransformCallback} callback
  */
-function _transformChunk(chunk, encoding, callback) {
-    if(chunk.isNull()) {
-        callback(null, chunk);
+function _transformChunk(file, encoding, callback) {
+    if(file.isNull()) {
+        callback(null, file);
         return;
     }
-    if (chunk.isStream()) {
+    if (file.isStream()) {
         callback(new PluginError(plugin_name, 'Streaming not supported'));
         return;
     }
 
     const opts = deepmerge(sassOptions, {
         loadPaths: [
-            chunk.base
+            file.base
         ]
     });
 
     try {
-        const result = sass.compileString(chunk.contents.toString(), opts);
-        chunk.contents = Buffer.from(result.css);
-        callback(null, chunk);
+        // [1] Use Dart Sass to transform the file contents from SCSS to CSS
+        const result = sass.compileString(file.contents.toString(), opts);
+        
+        // [2] Save the resulting CSS string to the file object
+        file.contents = Buffer.from(result.css);
+        
+        // [3] Change the file extension to match the contents
+        file.extname = '.css';
+        
+        callback(null, file);
     } catch (error) {
         callback(new PluginError(plugin_name, error));
     }
