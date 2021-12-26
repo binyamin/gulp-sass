@@ -23,6 +23,11 @@ function _transformChunk(file, encoding, callback) {
         return;
     }
 
+    if(file.basename.startsWith("_")) {
+        callback(null, null);
+        return;
+    }
+
     const opts = deepmerge(sassOptions, {
         loadPaths: [
             file.base
