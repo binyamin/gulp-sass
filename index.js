@@ -1,5 +1,3 @@
-import {pathToFileURL} from 'node:url';
-
 import PluginError from "plugin-error";
 import deepmerge from "deepmerge";
 import through from "through2";
@@ -33,8 +31,7 @@ function _transformChunk(file, encoding, callback) {
     const opts = deepmerge(sassOptions, {
         loadPaths: [
             file.base
-        ],
-        url: pathToFileURL(file.path).toString()
+        ]
     });
 
     try {
@@ -44,13 +41,15 @@ function _transformChunk(file, encoding, callback) {
         // [2] Save the resulting CSS string to the file object
         file.contents = Buffer.from(result.css);
         
-        // [3] If a sourcemap was generated, add it to the file object
+        // [3] Change the file extension to match the content-type
+        file.extname = '.css';
+        
+        // [4] If a sourcemap was generated, add it to the file object/
+        // Note: this must come after the extname has changed
         if(result.sourceMap) {
             file.sourceMap = result.sourceMap;
+            file.sourceMap.file = file.relative;
         }
-        
-        // [4] Change the file extension to match the content-type
-        file.extname = '.css';
         
         callback(null, file);
     } catch (error) {
