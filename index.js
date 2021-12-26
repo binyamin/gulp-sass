@@ -36,7 +36,11 @@ function _transformChunk(file, encoding, callback) {
         // [2] Save the resulting CSS string to the file object
         file.contents = Buffer.from(result.css);
         
-        
+        // [3] If a sourcemap was generated, add it to the file object
+        if(result.sourceMap) {
+            file.sourcemap = result.sourceMap;
+        }
+
         callback(null, file);
     } catch (error) {
         callback(new PluginError(plugin_name, error));

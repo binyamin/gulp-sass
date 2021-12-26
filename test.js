@@ -16,7 +16,8 @@ import plugin from './index.js';
  */
 async function compile(filename, contents) {
 	const stream = plugin({
-		style: "compressed"
+		style: "compressed",
+		sourceMap: true
 	});
 	const promise = pEvent(stream, 'data');
 	
@@ -37,5 +38,9 @@ test('sass should compile correctly', async t => {
 	t.is(file.contents.toString(), 'body{color:red}');
 })
 
-test.todo('sass should write sourcemaps')
+test('sass should write sourcemaps', async t => {
+	const file = await compile("main.scss", "body {color: red }");
+	t.truthy(file.sourcemap);
+})
+
 test.todo('sass should not compile files prefixed with an underscore')
