@@ -36,8 +36,6 @@ function _transformChunk(file, encoding, callback) {
         // [2] Save the resulting CSS string to the file object
         file.contents = Buffer.from(result.css);
         
-        // [3] Change the file extension to match the contents
-        file.extname = '.css';
         
         callback(null, file);
     } catch (error) {
