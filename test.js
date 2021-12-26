@@ -36,9 +36,6 @@ test('sass should compile correctly', async t => {
 	const file = await compile("main.scss", '$var: red; body { color: $var; }');
 	t.is(file.contents.toString(), 'body{color:red}');
 })
-test('vinyl object should have `.css` file extension', async t => {
-	const file = await compile("main.scss", "body { color: red }");
-	t.is(file.extname, '.css');
-})
+
 test.todo('sass should write sourcemaps')
 test.todo('sass should not compile files prefixed with an underscore')
