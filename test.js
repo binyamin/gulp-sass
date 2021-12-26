@@ -51,7 +51,7 @@ test('sass should compile correctly', async t => {
 
 test('sass should write sourcemaps', async t => {
 	const file = await compile('simple');
-	t.truthy(file.sourcemap);
+	t.truthy(file.sourceMap);
 })
 
 test("resulting file should have `.css` extension", async t => {
