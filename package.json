@@ -31,14 +31,6 @@
     "p-event": "^4.2.0",
     "vinyl": "^2.2.1"
   },
-  "peerDependencies": {
-    "gulp": ">=4"
-  },
-  "peerDependenciesMeta": {
-    "gulp": {
-      "optional": true
-    }
-  },
   "bugs": {
     "url": "https://github.com/binyamin/gulp-sass/issues"
   },
