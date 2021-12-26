@@ -6,10 +6,10 @@ import sass from 'sass';
 
 /** @type {sass.Options} */
 let sassOptions;
-let plugin_name = "gulp-community/sass";
+let plugin_name = "@gulp-community/sass";
 
 /**
- * @param {import("vinyl")} file also called "file"
+ * @param {import("vinyl")} file also called "chunk"
  * @param {BufferEncoding} encoding
  * @param {through.TransformCallback} callback
  */
