@@ -1,0 +1,41 @@
+{
+  "name": "@gulp-community/sass",
+  "version": "0.1.0",
+  "description": "",
+  "exports": "./index.js",
+  "type": "module",
+  "author": "Binyamin Aron Green (https://binyam.in)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binyamin/gulp-sass.git"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin"
+  ],
+  "scripts": {
+    "test": "ava"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "p-event": "^4.2.0",
+    "sass": "^1.45.1",
+    "vinyl": "^2.2.1"
+  },
+  "peerDependencies": {
+    "gulp": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "gulp": {
+      "optional": true
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/binyamin/gulp-sass/issues"
+  },
+  "homepage": "https://github.com/binyamin/gulp-sass#readme"
+}
