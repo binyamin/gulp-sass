@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 import test from 'ava';
@@ -10,36 +11,46 @@ import plugin from './index.js';
 // See <https://github.com/sindresorhus/gulp-plugin-boilerplate/>
 
 /**
- * @param {string} filename 
- * @param {string} contents 
+ * @param {string} folder
  * @returns {Promise<Vinyl>}
  */
-async function compile(filename, contents) {
+async function compile(folder) {
+	const dirname = path.dirname(fileURLToPath(import.meta.url));
+
 	const stream = plugin({
 		style: "compressed",
 		sourceMap: true
 	});
 	const promise = pEvent(stream, 'data');
 	
-	const dirname = fileURLToPath(import.meta.url);
+	const dir = path.join(dirname, 'fixtures', folder);
+	const tree = await fs.readdir(dir, 'utf-8');
 
-	stream.end(new Vinyl({
-		base: dirname,
-		path: path.join(dirname, filename),
-		contents: Buffer.from(contents)
-	}));
+	for(const filename of tree) {
+		const filepath = path.join(dir, filename);
+		const contents = await fs.readFile(filepath, 'utf-8');
+
+		stream.write(new Vinyl({
+			cwd: dir,
+			base: dir,
+			path: filepath,
+			contents: Buffer.from(contents)
+		}));
+	}
+	
+	stream.end();
 	
 	const file = await promise;
 	return file;
 }
 
 test('sass should compile correctly', async t => {
-	const file = await compile("main.scss", '$var: red; body { color: $var; }');
+	const file = await compile('simple');
 	t.is(file.contents.toString(), 'body{color:red}');
 })
 
 test('sass should write sourcemaps', async t => {
-	const file = await compile("main.scss", "body {color: red }");
+	const file = await compile('simple');
 	t.truthy(file.sourcemap);
 })
 
