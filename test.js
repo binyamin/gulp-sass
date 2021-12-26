@@ -10,7 +10,9 @@ import plugin from './index.js';
 // See <https://github.com/sindresorhus/gulp-plugin-boilerplate/>
 
 async function compile(filename, contents) {
-	const stream = plugin();
+	const stream = plugin({
+		style: "compressed"
+	});
 	const promise = pEvent(stream, 'data');
 	
 	const dirname = fileURLToPath(import.meta.url);
@@ -25,6 +27,9 @@ async function compile(filename, contents) {
 	return file;
 }
 
-test.todo('sass should compile correctly')
+test('sass should compile correctly', async t => {
+	const file = await compile("main.scss", '$var: red; body { color: $var; }');
+	t.is(file.contents.toString(), 'body{color:red}');
+})
 test.todo('sass should write sourcemaps')
 test.todo('sass should not compile files prefixed with an underscore')
