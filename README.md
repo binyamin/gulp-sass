@@ -3,13 +3,11 @@
 
 [![CI](https://github.com/binyamin/gulp-sass/actions/workflows/main.yml/badge.svg)](https://github.com/binyamin/gulp-sass/actions/workflows/main.yml)
 
-## Usage
-**Install**
-```sh
-npm install @gulp-community/sass -D
-```
+## Install
+This plugin is not on NPM yet. Waiting to move it into [gulp-community](https://github.com/gulp-community). If you really want, you can install it via Git.
 
-**Use**
+## Usage
+"A code snippet is worth a thousand words" <sup>[citation needed]</sup>
 ```js
 import sass from '@gulp-community/sass';
 
@@ -20,11 +18,11 @@ function styles() {
 }
 ```
 
-### Common Workflows
-<!-- TODO -->
-<!-- #### Indented Syntax (`.sass`) -->
+## Common Workflows
+### Indented Syntax
+If the file's extension is `.sass`, the plugin will automatically set the `syntax` option to `indented`.
 
-#### Sourcemaps
+### Sourcemaps
 For external source-maps, set the `sourceMap` option to `true`, like so.
 
 ```js
@@ -43,7 +41,7 @@ function styles() {
 }
 ```
 
-#### Rename the output file
+### Rename the output file
 This plugin changes the file extension (`.scss` or `.sass`) to `.css`. For anything else, use a plugin like [gulp-rename](https://www.npmjs.com/package/gulp-rename).
 
 ## Legal

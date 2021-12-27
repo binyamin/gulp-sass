@@ -63,3 +63,8 @@ test('sass should not compile partials individually', async t => {
 	const file = await compile('multiple');
 	t.is(file.contents.toString(), 'body{color:red}html{font-size:112.5%}');
 })
+
+test('should use indented syntax based on file-extension', async t => {
+	const file = await compile('indented');
+	t.is(file.contents.toString(), 'body{color:red}');
+})

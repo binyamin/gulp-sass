@@ -33,7 +33,8 @@ function _transformChunk(file, encoding, callback) {
     const opts = deepmerge(sassOptions, {
         loadPaths: [
             file.base
-        ]
+        ],
+        syntax: (file.extname === ".sass" ? "indented" : "scss")
     });
 
     try {
