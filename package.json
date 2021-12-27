@@ -1,7 +1,7 @@
 {
   "name": "@gulp-community/sass",
   "version": "0.1.0",
-  "description": "",
+  "description": "A gulp plugin to process sass with dart-sass",
   "exports": "./index.js",
   "type": "module",
   "author": "Binyamin Aron Green (https://binyam.in)",
@@ -14,7 +14,11 @@
     "index.js"
   ],
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "sass",
+    "scss",
+    "dart-sass",
+    "gulp"
   ],
   "scripts": {
     "test": "ava"
