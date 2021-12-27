@@ -4,14 +4,16 @@ import through from "through2";
 
 import sass from 'sass';
 
-/** @type {sass.Options} */
+/**
+ * @type {import("sass").StringOptions<"sync">}
+ */
 let sassOptions;
 let plugin_name = "@gulp-community/sass";
 
 /**
  * @param {import("vinyl")} file also called "chunk"
  * @param {BufferEncoding} encoding
- * @param {through.TransformCallback} callback
+ * @param {import("through2").TransformCallback} callback
  */
 function _transformChunk(file, encoding, callback) {
     if(file.isNull()) {
@@ -58,13 +60,15 @@ function _transformChunk(file, encoding, callback) {
 }
 
 /**
- * @param {sass.Options} options Configuration, passed directly to the dart-sass compiler
- * @returns
+ * Process sass with dart-sass
+ * 
+ * @param {import("sass").StringOptions<"sync">} [options] Configuration, passed directly to the dart-sass compiler
+ * @returns {import("node:stream").Transform}
  */
- function Plugin(options) {
+function GulpSass(options={}) {
     sassOptions = options;
 
     return through.obj(_transformChunk);
 };
 
-export default Plugin;
+export default GulpSass;
