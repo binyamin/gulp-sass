@@ -30,12 +30,14 @@ function _transformChunk(file, encoding, callback) {
         return;
     }
 
-    const opts = deepmerge(sassOptions, {
+    // NOTE: deepmerge gives precendence to the last argument, so we set that
+    // to the user's preferences
+    const opts = deepmerge({
         loadPaths: [
             file.base
         ],
         syntax: (file.extname === ".sass" ? "indented" : "scss")
-    });
+    }, sassOptions);
 
     try {
         // [1] Use Dart Sass to transform the file contents from SCSS to CSS
@@ -48,7 +50,7 @@ function _transformChunk(file, encoding, callback) {
         file.extname = '.css';
         
         // [4] If a sourcemap was generated, add it to the file object/
-        // Note: this must come after the extname has changed
+        // Note: this must come after the file-extension has changed
         if(result.sourceMap) {
             file.sourceMap = result.sourceMap;
             file.sourceMap.file = file.relative;
