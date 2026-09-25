@@ -45,4 +45,4 @@ function styles() {
 This plugin changes the file extension (`.scss` or `.sass`) to `.css`. For anything else, use a plugin like [gulp-rename](https://www.npmjs.com/package/gulp-rename).
 
 ## Legal
-All source-code is provided under the terms of [the MIT license](https://github.com/binyamin/gulp-sass/blob/main/LICENSE). Copyright 2021 Binyamin Aron Green.
+All source-code is provided under the terms of [the MIT license](https://github.com/binyamin/gulp-sass/blob/main/LICENSE). Copyright 2026 Binyamin Aron Green.
