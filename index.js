@@ -2,7 +2,7 @@ import PluginError from "plugin-error";
 import deepmerge from "deepmerge";
 import through from "through2";
 
-import sass from 'sass';
+import * as sass from 'sass';
 
 /**
  * @type {import("sass").StringOptions<"sync">}
@@ -42,20 +42,20 @@ function _transformChunk(file, encoding, callback) {
     try {
         // [1] Use Dart Sass to transform the file contents from SCSS to CSS
         const result = sass.compileString(file.contents.toString(), opts);
-        
+
         // [2] Save the resulting CSS string to the file object
         file.contents = Buffer.from(result.css);
-        
+
         // [3] Change the file extension to match the content-type
         file.extname = '.css';
-        
+
         // [4] If a sourcemap was generated, add it to the file object/
         // Note: this must come after the file-extension has changed
         if(result.sourceMap) {
             file.sourceMap = result.sourceMap;
             file.sourceMap.file = file.relative;
         }
-        
+
         callback(null, file);
     } catch (error) {
         callback(new PluginError(plugin_name, error));
@@ -64,7 +64,7 @@ function _transformChunk(file, encoding, callback) {
 
 /**
  * Process sass with dart-sass
- * 
+ *
  * @param {import("sass").StringOptions<"sync">} [options] Configuration, passed directly to the dart-sass compiler
  * @returns {import("node:stream").Transform}
  */
