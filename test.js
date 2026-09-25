@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import test from 'ava';
 import Vinyl from 'vinyl';
-import pEvent from 'p-event';
+import { pEvent } from 'p-event';
 
 import plugin from './index.js';
 
@@ -22,7 +22,7 @@ async function compile(folder, o) {
 		sourceMap: true
 	});
 	const promise = pEvent(stream, 'data');
-	
+
 	const dir = path.join(dirname, 'fixtures', folder);
 	const tree = await fs.readdir(dir, 'utf-8');
 
@@ -37,9 +37,9 @@ async function compile(folder, o) {
 			contents: Buffer.from(contents)
 		}));
 	}
-	
+
 	stream.end();
-	
+
 	const file = await promise;
 	return file;
 }
